@@ -1,9 +1,8 @@
-# Install
+# 💻Project Setup
 
 ```sh
 npm install
 ```
-
 
 # Migrations
 
@@ -31,4 +30,15 @@ psql -h localhost -d my_store -U nico
 \d+
 SELECT * FROM users;
 DELETE FROM users WHERE id=<id>;
+```
+
+## 🐳 Docker Compose
+
+```sh
+# Ejecutar todos los contenedores
+docker-compose up -d
+
+# Ejecutarlos de forma individual
+docker-compose up -d postgres
+docker-compose up -d pgadmin
 ```
