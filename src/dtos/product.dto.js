@@ -26,7 +26,7 @@ const updateProductDto = Joi.object({
   price: price,
   image: image,
   description: description,
-  categoryId
+  categoryId,
 });
 
 const getProductDto = Joi.object({
@@ -41,7 +41,12 @@ const queryProductDto = Joi.object({
   price_max: Joi.when('price_min', {
     is: Joi.exist(),
     then: price_max.required(),
-  })
+  }),
 });
 
-module.exports = { createProductDto, updateProductDto, getProductDto, queryProductDto }
+module.exports = {
+  createProductDto,
+  updateProductDto,
+  getProductDto,
+  queryProductDto,
+};
