@@ -1,25 +1,20 @@
 # 💻Project Setup
 
 ```sh
+# Instalar dependencias
 npm install
-```
 
 # Migrations
-
-```sh
 npm run migrations:run
-```
 
 # Run in dev mode
-
-```sh
 npm run dev
-```
 
 # Run in prod mode
-
-```sh
 npm run start
+
+# Run test E2E
+npm run e2e
 ```
 
 # Connect to DB from Docker
