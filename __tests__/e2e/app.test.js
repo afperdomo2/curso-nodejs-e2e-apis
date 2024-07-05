@@ -1,5 +1,6 @@
 const request = require('supertest');
-const express = require('express');
+
+const createApp = require('../../src/app');
 
 // Grupo de tests para la app
 describe('tests for app', () => {
@@ -10,11 +11,7 @@ describe('tests for app', () => {
   // Antes de cada test
   beforeEach(() => {
     // Crea una instancia de express
-    app = express();
-    // Crea una ruta que responde con un JSON
-    app.get('/hello', (req, res) => {
-      res.status(200).json({ name: 'mono' });
-    });
+    app = createApp();
     // Inicia el servidor en el puerto 9020
     server = app.listen(9020);
     // Crea una instancia de supertest pasando la app de express
