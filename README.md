@@ -15,6 +15,9 @@ npm run start
 
 # Run test E2E
 npm run e2e
+
+# Ejecutar pruebas y generar el reporte de cobertura
+npm run e2e:coverage
 ```
 
 # Connect to DB from Docker
