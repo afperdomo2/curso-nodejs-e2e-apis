@@ -1,6 +1,7 @@
 const request = require('supertest');
 
 const createApp = require('../../src/app');
+const { models } = require('../../src/db/sequelize');
 
 // Grupo de tests para la app
 describe('tests for /users path', () => {
@@ -38,8 +39,17 @@ describe('tests for /users path', () => {
     });
   });
 
-  describe('GET /users/:id', () => {
-    // tests
+  describe('GET /users/{id}', () => {
+    const USERS_PATH = '/api/v1/users';
+
+    test('Should return a user', async () => {
+      const userId = 1;
+      const user = await models.User.findByPk(userId);
+      const { statusCode, body } = await api.get(`${USERS_PATH}/${user.id}`);
+      expect(statusCode).toEqual(200);
+      expect(body.id).toEqual(user.id);
+      expect(body.email).toEqual(user.email);
+    });
   });
 
   afterEach(() => {
