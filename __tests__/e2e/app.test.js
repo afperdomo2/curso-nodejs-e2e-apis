@@ -8,8 +8,8 @@ describe('tests for app', () => {
   let server = null;
   let api = null;
 
-  // Antes de cada test
-  beforeEach(() => {
+  // Se ejecuta antes de todos los tests
+  beforeAll(() => {
     // Crea una instancia de express
     app = createApp();
     // Inicia el servidor en el puerto 9020
@@ -37,7 +37,8 @@ describe('tests for app', () => {
     );
   });
 
-  afterEach(() => {
+  // Se ejecuta después de todos los tests
+  afterAll(() => {
     server.close();
   });
 });

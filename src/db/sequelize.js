@@ -5,7 +5,8 @@ const setupModels = require('./models');
 
 const options = {
   dialect: 'postgres',
-  logging: config.isProd ? false : console.log,
+  // eslint-disable-next-line no-console
+  logging: config.env == 'dev' ? console.log : false,
 };
 
 if (config.isProd) {
