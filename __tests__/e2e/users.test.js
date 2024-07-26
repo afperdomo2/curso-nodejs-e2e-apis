@@ -38,6 +38,21 @@ describe('tests for /users path', () => {
       expect(statusCode).toEqual(400);
       expect(body.message).toMatch('must be a valid email');
     });
+
+    test('Should return a new user', async () => {
+      const ROL_DEFAULT = 'admin';
+      const inputData = {
+        email: 'pepitoPerez@gmail.com',
+        password: 'pruebas123',
+      };
+      const { statusCode, body } = await api.post(USERS_PATH).send(inputData);
+      expect(statusCode).toEqual(201);
+      // Validar con la base de datos
+      const user = await models.User.findByPk(body.id);
+      expect(user).toBeTruthy(); // Existe el usuario
+      expect(user.role).toEqual(ROL_DEFAULT);
+      expect(user.email).toEqual(inputData.email);
+    });
   });
 
   describe('GET /users/{id}', () => {
