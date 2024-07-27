@@ -24,6 +24,4 @@ const config = {
   smtpPassword: process.env.SMTP_PASSWORD,
 };
 
-console.log('config: ', config);
-
 module.exports = { config };

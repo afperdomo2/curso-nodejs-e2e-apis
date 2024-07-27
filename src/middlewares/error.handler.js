@@ -11,19 +11,21 @@ function logErrors(err, req, res, next) {
 }
 
 function errorHandler(err, req, res) {
-  res.status(500).json({
-    message: err.message,
-    stack: err.stack,
-  });
+  if (res.status) {
+    res.status(500).json({
+      message: err.message,
+      stack: err.stack,
+    });
+  }
 }
 
 function boomErrorHandler(err, req, res, next) {
   if (err.isBoom) {
     const { output } = err;
     res.status(output.statusCode).json(output.payload);
-  } else {
-    next(err);
+    return;
   }
+  next(err);
 }
 
 function ormErrorHandler(err, req, res, next) {

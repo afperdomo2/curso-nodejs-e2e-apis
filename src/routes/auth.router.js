@@ -14,6 +14,7 @@ router.post(
       const user = req.user;
       res.json(service.signToken(user));
     } catch (error) {
+      console.log(67788);
       next(error);
     }
   }
