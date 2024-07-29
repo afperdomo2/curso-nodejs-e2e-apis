@@ -2,6 +2,9 @@ const { PRODUCT_TABLE } = require('../models/product.model');
 
 module.exports = {
   up: async (queryInterface) => {
+    if (queryInterface.context) {
+      queryInterface = queryInterface.context;
+    }
     const IMAGE_URL = 'https://api.lorem.space/image/game?w=150&h=220';
     return queryInterface.bulkInsert(PRODUCT_TABLE, [
       {
@@ -30,7 +33,10 @@ module.exports = {
       },
     ]);
   },
-  down: (queryInterface) => {
-    return queryInterface.bulkDelete(PRODUCT_TABLE, null, {});
+  down: async (queryInterface) => {
+    if (queryInterface.context) {
+      queryInterface = queryInterface.context;
+    }
+    return await queryInterface.bulkDelete(PRODUCT_TABLE, null, {});
   },
 };

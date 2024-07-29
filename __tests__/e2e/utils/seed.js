@@ -3,6 +3,9 @@ const bcrypt = require('bcrypt');
 const sequelize = require('../../../src/db/sequelize');
 const { models } = sequelize;
 
+/**
+ * Crear semillas de datos de forma manual
+ */
 const upSeed = async () => {
   try {
     await sequelize.sync({ force: true });

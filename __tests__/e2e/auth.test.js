@@ -2,7 +2,7 @@ const request = require('supertest');
 
 const createApp = require('../../src/app');
 const { models } = require('../../src/db/sequelize');
-const { upSeed, downSeed } = require('./utils/seed');
+const { upSeed, downSeed } = require('./utils/umzug');
 
 // Grupo de tests para la app
 describe('tests for /auth path', () => {
@@ -28,7 +28,7 @@ describe('tests for /auth path', () => {
     });
 
     test('Should return a 200', async () => {
-      const firstUser = await models.User.findOne();
+      const firstUser = await models.User.findByPk(1);
       const inputData = {
         email: firstUser.email, // El email lo saca de la base de datos
         password: 'admin123',
