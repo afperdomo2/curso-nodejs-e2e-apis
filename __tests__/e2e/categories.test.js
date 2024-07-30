@@ -33,8 +33,8 @@ describe('test for /categories path', () => {
   // 2. Grupos de tests con autenticación de usuario admin
   describe('POST /categories with admin user', () => {
     beforeAll(async () => {
-      const firstUser = await models.User.findOne();
-      const inputData = { email: firstUser.email, password: 'admin123' };
+      const adminUser = await models.User.findByPk(1);
+      const inputData = { email: adminUser.email, password: 'admin123' };
       const { body } = await api.post('/api/v1/auth/login').send(inputData);
       accessToken = body.access_token;
     });
@@ -51,6 +51,30 @@ describe('test for /categories path', () => {
       const category = await models.Category.findByPk(body.id);
       expect(category.name).toEqual(inputData.name);
       expect(category.image).toEqual(inputData.image);
+    });
+
+    afterAll(() => {
+      accessToken = null;
+    });
+  });
+
+  // 3. Grupos de tests con autenticación de usuario customer
+  describe('POST /categories with customer user', () => {
+    beforeAll(async () => {
+      const customerUser = await models.User.findByPk(2);
+      const inputData = { email: customerUser.email, password: 'customer123' };
+      const { body } = await api.post('/api/v1/auth/login').send(inputData);
+      accessToken = body.access_token;
+    });
+
+    test('Should return 401', async () => {
+      const inputData = { name: 'Categoría nueva 2', image: IMAGE_URL };
+      const auth = { Authorization: `Bearer ${accessToken}` };
+      const { statusCode } = await api
+        .post(USERS_PATH)
+        .send(inputData)
+        .set(auth);
+      expect(statusCode).toEqual(401);
     });
 
     afterAll(() => {
